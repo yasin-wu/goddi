@@ -70,13 +70,15 @@ func dial(li *LdapInfo) {
 }
 
 // Connect authenticated bind to ldap connection
-func Connect(li *LdapInfo) {
+func Connect(li *LdapInfo) bool {
 
 	dial(li)
 	fmt.Printf("[i] Begin BIND...\n")
 	err := li.Conn.Bind(li.User, li.Pass)
 	if err != nil {
 		log.Fatal(err)
+		return false
 	}
 	fmt.Printf("[i] BIND with '%s' successful...\n[i] Begin dump domain info...\n", li.User)
+	return true
 }
